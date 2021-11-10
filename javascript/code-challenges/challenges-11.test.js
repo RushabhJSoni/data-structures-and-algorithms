@@ -19,13 +19,8 @@ Becomes:
 ------------------------------------------------------------------------------------------------ */
 
 function transformToLis(obj){
-  let list = null;
-  let newArr = [];
-  newArr =  Object.entries(obj);
-  for (let i = newArr.length - 1; i >= 0; i--) {
-    list = "<li>" + newArr[i] + "</li>"
-}
-return list;
+
+  return Object.entries(obj).map(prop=>`<li>${prop[0]}: ${prop[1]}</li>`);
   
 };
 
@@ -40,8 +35,16 @@ For example, count(5, [[1, 3, 5, 7, 9], [5, 5, 5], [1, 2, 3]]) returns 4.
 ------------------------------------------------------------------------------------------------ */
 
 const count = (target, input) => {
-  // Solution code here...
+  if (input.length === 0) {
+    return 0;
+  } else {
+    const arr = input.map((arr) => {
+      return arr.filter((num) => num === target).length;
+    });
+    return arr.reduce((acc, val) => (acc += val));
+  }
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -54,7 +57,9 @@ For example, [[1, 2, 3, 4, 5], [6, 7, 2, 4, 5, 7], [9, 2, 3, 6,]] returns 66.
 ------------------------------------------------------------------------------------------------ */
 
 const totalSum = (input) => {
-  // Solution code here...
+  let tot= input.map(num => num.reduce((acc,val) => acc = acc+ val));
+  let totSum= tot.reduce((acc,val) => acc=acc+val);
+  return totSum;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -69,9 +74,10 @@ This function should then raise 2 to the power of the resulting numbers, returni
 For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 ------------------------------------------------------------------------------------------------ */
 
-const divisibleByFiveTwoToThePower = (input) => {
-  // Solution code here...
-};
+const divisibleByFiveTwoToThePower = (input) => 
+  input.map((arr)=>arr.filter((val) => (typeof val === 'number' && val % 5 === 0 ? true : false)).map((val) => Math.pow(2, val)));
+
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5
